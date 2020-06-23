@@ -4,7 +4,8 @@
   "description": "js project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm index.js",
+    "precommit": "npx eslint",
   },
   "repository": {
     "type": "git",
