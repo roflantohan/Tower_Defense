@@ -80,7 +80,40 @@ const Render = {
 		});
 	},
 
-	
+	drawTowers: () => {
+		//отрисовка уже установленных башен
+		props.towers.forEach((tower) => {
+			if (tower.lastshot + tower.rate <= props.ticks) {
+				let creeps = props.creeps.filter((creep) => {
+					return Math.inRadius(creep, tower, tower.range);
+				});
+				
+				if (creeps.length > 0) {
+					tower.shoot(creeps, tower);
+					tower.lastshot = props.ticks;
+				}
+			}
+			
+			canvas.drawImage(tower.img, tower.x - 12.5, tower.y - 12.5);
+		});
+		// установка башни на карте
+		let selection = props.selection;
+		let tower = selection.tower;
+		if (selection) {
+			canvas.beginPath();
+			canvas.fillStyle = selection.status === "selected" || selection.placeable ? "rgba(255, 255, 255, .3)" : "rgba(255, 0, 0, .3)";
+			canvas.arc(tower.x, tower.y, tower.range, 0, Math.PI * 2, true);
+			canvas.fill();
+			canvas.drawImage(tower.img, tower.x - 12.5, tower.y - 12.5);
+		}
+	},
+	drawShoots: () => {
+		props.run.forEach((something, i, a) => {
+			if (something.what() === false || --something.until === 0) {
+				delete a[i];
+			}
+		});
+	},
 	drawMap: (map, canvas) => {
 		const start = map[0];
 		canvas.fillStyle = "#008080";
