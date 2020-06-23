@@ -4,9 +4,12 @@
   "description": "js project",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "precommit": "npx eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx eslint .",
+    }
   },
   "repository": {
     "type": "git",
@@ -19,7 +22,8 @@
   },
   "homepage": "https://github.com/roflantohan/Tower_Defense#readme",
   "devDependencies": {
-    "eslint": "^7.3.0"
+    "eslint": "^7.3.0",
+    "husky": "^4.2.5"
   },
   "dependencies": {
     "koa": "^2.13.0",
