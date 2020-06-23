@@ -3,7 +3,7 @@ const koa = require('koa');
 const app = new koa();
 const PORT = process.env.PORT || 3000;
 
-app.use(serve(__dirname));
+app.use(serve(__dirname + "/public"));
 
 app.listen(PORT, () => {
 	console.log(PORT)
