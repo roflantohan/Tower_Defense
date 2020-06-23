@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<link rel="shortcut icon" href="img//favicon.ico" />
+		<title>Tower Defense</title>
+		<link href="index.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="game">
+
+			<div class="topic" id="header">Tower Defense</div>
+
+			<div id="right_bar">
+
+				<div class="topic">Maps</div>
+
+				<div id="list_map"></div>
+
+			</div>
+
+			<div id="main">
+
+				<canvas id="canvas" width="800" height="500"></canvas>
+
+			</div>
+
+			<div id="towers">
+
+					<div class="topic">Towers</div>
+
+					<div class="upperright" id="icons">
+						<br><img class="tower_img" src="img/tower_1.png" width="25" height="25"><br>(15)
+						<br><img class="tower_img" src="img/tower_2.png" width="25" height="25"><br>(25)
+						<br><img class="tower_img" src="img/tower_3.png" width="25" height="25"><br>(40)
+						<br><img class="tower_img" src="img/tower_4.png" width="25" height="25"><br>(60)
+					</div>
+
+					<div class="topic">Features</div>
+
+					<div class="leftborder" id="stats">
+						<br><a class="stat_button" id="img_stat">-</a><br>
+						<br><a class="stat_button" id="damage_stat">Damage: -</a>
+						<br><a class="stat_button" id="rate_stat">Rate: -</a>
+						<br><a class="stat_button" id="range_stat">Range: -</a>
+					</div>
+
+					<div class="topic">General</div>
+
+					<div class="leftborder" id="general_stats">
+						<br><a class="gen_stat_button" id="kills_stat">Kills: </a>
+						<br><a class="gen_stat_button" id="spent_stat">Spent: </a>
+						<br><a class="gen_stat_button" id="score_stat">Score: </a><br>
+					</div>
+			</div>
+
+			<div id="shop">
+
+				<div class="topic">Shop</div>
+
+				<div class="upperright leftborder" id="shop_list">
+					<br><a class="shop_button" id="damage">Damage</a><br>
+					<br><a class="shop_button" id="rate">Rate</a><br>
+					<br><a class="shop_button" id="range">Range</a><br>
+					<br><a class="shop_button" id="move">Move</a><br>
+					<br><a class="shop_button" id="sell">Sell</a><br><br>
+				</div>
+
+				<div class="topic">Menu</div>
+
+				<div class="leftborder" id="menu_list">
+					<br><a class="menu_button prop" id="start_button">Start</a><br>
+					<br><a class="menu_button prop" id="reset_button">Reset</a><br>
+					<br><a class="menu_button prop" id="add_button">+</a>
+					<a class="menu_button prop" id="fast_button">>></a><br>
+					<br><a class="menu_button" id="time_button">Time:</a><br>
+					<br><a class="menu_button" id="cash_button">Cash:</a><br>
+					<br><a class="menu_button" id="lives_button">Lives:</a><br>
+					<br><a class="menu_button" id="wave_button">Wave:</a><br><br>
+				</div>
+				
+			</div>
+
+			<div class="topic" id="console"></div>
+
+		</div>
+	</body>
+</html>

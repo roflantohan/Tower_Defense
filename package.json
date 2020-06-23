@@ -18,5 +18,9 @@
   "homepage": "https://github.com/roflantohan/Tower_Defense#readme",
   "devDependencies": {
     "eslint": "^7.3.0"
+  },
+  "dependencies": {
+    "koa": "^2.13.0",
+    "koa-static": "^5.0.0"
   }
 }

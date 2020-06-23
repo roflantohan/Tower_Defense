@@ -1,0 +1,95 @@
+body{
+	background: #BDB76B;
+	text-align:center;
+	margin-left: 5%;
+}
+#game{
+	font-family:Georgia, serif;
+	font-size: 15px;
+}
+div{
+	border: 2px solid #8B4513;
+}
+.topic{
+	font-weight: bolder;
+	font-size: 16px;
+}
+.upperright{
+	height: 190.5px;
+}
+#game {
+  	display: grid;
+  	width: 1200px;
+  	grid-template-rows: auto;
+  	grid-template-columns: 180px 801px 110px 110px;
+  	grid-template-areas: 
+    "header header header header"
+    "maps main towers shop"
+    "footer footer footer footer";
+  	grid-gap: 0px;
+	background: #F0E68C;
+}
+
+#header{
+  	grid-area: header;
+}
+#main{
+ 	grid-area: main;
+}
+#towers{
+  	grid-area: towers;
+}
+#maps{
+	grid-area: maps;	
+}
+#shop{
+  	grid-area: shop;
+}
+#console{
+  	grid-area: footer;
+}
+#canvas {
+	border: 1px solid #8B4513;
+	width: 800;
+	height: 500;
+}
+#stats{
+	height: 155px;
+}
+#general_stats{
+	height: 75px;
+}
+.leftborder{
+	text-align: left;
+}
+#menu_list{
+	height: 257px;
+}
+.shop_button{
+	border: 1px solid #8B4513;
+	background-color: #F4A460;
+}
+a:hover, img:hover{
+	color: #800000;
+	cursor: pointer;
+	border: 2px solid #8B4513
+}
+.maps_menu{
+	border: 1px solid #8B4513;
+	width: 150;
+	height: 93.75px;
+}
+.maps_menu:hover{
+	border: 2px solid #8B4513
+}
+.maps_menu:hover{
+	cursor: pointer;
+}
+#list_map{
+	height: 474.5px;
+}
+.prop{
+	border: 1px solid #8B4513;
+	background-color: #F4A460;
+	text-align: center;
+}
