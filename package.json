@@ -1,0 +1,22 @@
+{
+  "name": "tower_defense",
+  "version": "1.0.0",
+  "description": "js project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roflantohan/Tower_Defense.git"
+  },
+  "author": "Bezzubenko Anton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roflantohan/Tower_Defense/issues"
+  },
+  "homepage": "https://github.com/roflantohan/Tower_Defense#readme",
+  "devDependencies": {
+    "eslint": "^7.3.0"
+  }
+}
