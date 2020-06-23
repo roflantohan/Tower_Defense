@@ -1,8 +1,8 @@
 'use strict'
 
-const canvas = document.getElementById("canvas").getContext("2d");
+export const canvas = document.getElementById("canvas").getContext("2d");
 
-const props = {
+export const props = {
 	ticks: 0, // fps current
 	_ticks: 0, // fps temp
 	_tick: 0, // fps for display

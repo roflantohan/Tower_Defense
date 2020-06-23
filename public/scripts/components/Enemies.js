@@ -1,6 +1,6 @@
 'use strict'
 
-const Enemies = {
+export Enemies = {
     enemy_img: [],
     
     enemyTypes: [

@@ -1,6 +1,6 @@
 'use strict'
 
-const Towers = {
+export const Towers = {
 	
 	upgrades: [25, 40, 75, 150, 250, 400, 500, 700, 900, 1000],
 

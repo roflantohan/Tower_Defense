@@ -1,10 +1,10 @@
 'use strict'
 
-Math.inRadius = (target, obj, rad) => {
+export Math.inRadius = (target, obj, rad) => {
 	return (obj.x - target.x)*(obj.x - target.x) + (obj.y - target.y)*(obj.y - target.y) < rad*rad;
 };
 
-Math.move = (obj, target, speed) => {
+export Math.move = (obj, target, speed) => {
 	var distx = target.x - obj.x;
 	var disty = target.y - obj.y;
 	var angle = Math.atan2(disty, distx);
@@ -15,6 +15,6 @@ Math.move = (obj, target, speed) => {
 	return (distx < 0 ? -distx : distx) + (disty < 0 ? -disty : disty) < 2;
 };
 
-Math.rand = (max) => {
+export Math.rand = (max) => {
 	return Math.floor(Math.random() * (max+1));
 }
