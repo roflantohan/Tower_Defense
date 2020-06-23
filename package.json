@@ -2,10 +2,10 @@
   "name": "tower_defense",
   "version": "1.0.0",
   "description": "js project",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "precommit": "npx eslint",
+    "start": "node server.js",
+    "precommit": "npx eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

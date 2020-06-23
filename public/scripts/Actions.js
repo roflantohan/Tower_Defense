@@ -70,7 +70,7 @@ const Actions = {
 		
 		for (let k in tower_data) {
 			tower[k] = tower_data[k];
-		};
+		}
 		
 		props.selection = props.cash - tower_data.cost >= 0 ? {
 			status: "placing",
@@ -331,7 +331,7 @@ const Actions = {
 				button = list_tower[i];
 				button.addEventListener('click', () => {
 					if (!props.paused) {
-				 		Actions.build(i);
+			 		Actions.build(i);
 				 	}
 				})
 			}

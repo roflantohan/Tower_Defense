@@ -16,7 +16,7 @@ const props = {
 	towers: [], 
 	selection: false, 
 	//useless var
- 	spent: 0,
+	spent: 0,
 	kills: 0,
 	// objects of coordinates
 	tiles: false,
