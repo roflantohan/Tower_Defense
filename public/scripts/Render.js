@@ -1,6 +1,6 @@
 'use strict'
 
-export const Render = {
+const Render = {
 
 	displayProps: () => {
 		document.getElementById("time_button").innerHTML = "Time: " + Math.floor(12 - ((props.ticks - props._wave) / 100));

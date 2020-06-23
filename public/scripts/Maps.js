@@ -1,6 +1,6 @@
 'use strict'
 
-export const Maps = [
+const Maps = [
 	{
 		id: 0,
 		path: [

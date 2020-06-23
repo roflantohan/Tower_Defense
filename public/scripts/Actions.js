@@ -366,7 +366,7 @@ const Actions = {
 	}
 }
 
-//window.onload = Actions.load;	
+window.onload = Actions.load;	
 
 
 
