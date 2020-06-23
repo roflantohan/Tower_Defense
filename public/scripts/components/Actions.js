@@ -206,7 +206,62 @@ const Actions = {
 		
 	}, 
 
-	
+	move: () => {
+		if (props.selection.status === "selected" && props.cash - 90 >= 0) {
+			let tower = props.selection.tower;
+			
+			props.selection = {
+				status: "moving",
+				tower: tower,
+				placeable: true
+			};
+			
+			tower._x = tower.x;
+			tower._y = tower.y;
+			
+			let tx = (tower._x + 2.5) / 5, ty = (tower._y + 2.5) / 5;
+			for (let i = 5; i--;) {
+				for (let ii = 5; ii--;) {
+					props.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
+				}
+			}
+			
+			delete props.towers[tower.id];
+		}
+	},
+
+	sell: () => {
+		if(props.selection.status === 'selected'){
+			let tower = props.selection.tower, value = Math.round(tower.cost * 0.7);
+			props.cash += value;
+			props.spent -= value;
+			
+			let tx = (tower.x + 2.5) / 5, ty = (tower.y + 2.5) / 5;
+			for (let i = 5; i--;) {
+				for (let ii = 5; ii--;) {
+					props.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
+				}
+			}
+			props.selection = false;
+			delete props.towers[tower.id];
+		}
+	},
+
+	upgrade: (stat) => {
+		let tower = props.selection.tower;
+		let levels = tower.levels;
+		let level = levels[stat];
+		let cost = Towers.upgrades[level];
+		
+		if (props.selection.status === "selected" && cost && props.cash - cost >= 0) {
+			levels[stat]++;
+			tower[stat] = tower.upgrades[level][stat];
+			levels.full = levels.damage === 10 && levels.rate === 10 && levels.range === 10;
+			tower.cost += cost;
+			props.cash -= cost;
+			props.spent += cost;
+		}
+	},
 	refresh: () => {
 		if (props.selection.status === 'selected') {
 			let tower = props.selection.tower;
@@ -286,6 +341,17 @@ const Actions = {
 		})();
 
 		document.addEventListener("click", Actions.refresh);
+		document.getElementById("damage").addEventListener("click", (event) => {
+			Actions.upgrade('damage');
+		});
+		document.getElementById("rate").addEventListener("click", (event) => {
+			Actions.upgrade('rate');
+		});
+		document.getElementById("range").addEventListener("click", (event) => {
+			Actions.upgrade('range');
+		});
+		document.getElementById("move").addEventListener("click", Actions.move);
+		document.getElementById("sell").addEventListener("click", Actions.sell);
 		document.addEventListener('keydown', Actions.esc);
 		document.addEventListener("click", Actions.esc_click);
 		document.getElementById("canvas").addEventListener("mousemove", Actions.mousemove_canvas);
