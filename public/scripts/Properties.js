@@ -3,30 +3,26 @@
 const canvas = document.getElementById("canvas").getContext("2d");
 
 const props = {
-	ticks: 0, // fps current
-	_ticks: 0, // fps temp
-	_tick: 0, // fps for display
-	ticker: -1, // fps start
-	run: [], //выстрелы
-	fast: false, // ускорение кадров
-	paused: true, // пауза 
-		
+	//time
+	ticks: 0, 
+	ticker: -1, 
+	fast: false, 
+	paused: true, 
 	wave: 0, 
-	_wave: 0,
-	
-	creeps: [], // враги на поле
-	towers: [], // башни на поле
+	wave_time: 0,
+	//array of objects on canvas
+	run: [], 
+	enemies: [],
+	towers: [], 
+	selection: false, 
+	//useless var
  	spent: 0,
 	kills: 0,
-	
-	selection: false, //выбранная башня
-	
-	tiles: false, // места для посадки башен
-	map: {}, // выбранная карта
-	
-	
-	
+	// objects of coordinates
+	tiles: false,
+	map: {}, 
+	//can be change there 
 	hpinc: 1.3, 
 	lives: 10,
-	cash: 35000
+	cash: 350
 };

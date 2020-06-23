@@ -60,13 +60,12 @@ const Actions = {
 			levels: {
 				range: 0,
 				rate: 0,
-				damage: 0,
-				full: false
+				damage: 0
 			},
 			kills: 0,
 			lastshot: 0,
 			img: document.querySelectorAll(".tower_img")[type],
-			id: props.towers.length
+			index: props.towers.length
 		};
 		
 		for (let k in tower_data) {
@@ -114,7 +113,7 @@ const Actions = {
 	
 	addWave: () => {
 		if (!props.paused) {
-			props._wave = props.ticks - 1200;
+			props.wave_time = props.ticks - 1200;
 		}
 	},
 	
@@ -141,8 +140,8 @@ const Actions = {
 
 	deselect: () => {
 		if (props.selection.status === "moving") {
-			let tower = p	.selection.tower;
-			props.towers[tower.id] = tower;
+			let tower = props.selection.tower;
+			props.towers[tower.index] = tower;
 			
 			tower.x = tower._x;
 			tower.y = tower._y;
@@ -166,7 +165,7 @@ const Actions = {
 		if (selection.status === "moving") {
 			if (selection.placeable && props.cash - 90 >= 0) {
 				props.cash -= 90;
-				props.towers[tower.id] = tower;
+				props.towers[tower.index] = tower;
 				
 				let tx = (tower.x + 2.5) / 5, ty = (tower.y + 2.5) / 5;
 				for (var i = 5; i--;) {
@@ -175,7 +174,6 @@ const Actions = {
 					}
 				}
 				props.selection = false;
-				//ui.action.refresh();
 			}
 		} else if (selection.status === "placing") {
 
@@ -191,9 +189,7 @@ const Actions = {
 						props.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = tower;
 					}
 				}
-				
 				props.selection = false;
-				//ui.action.refresh();
 			}
 		} else if (typeof tile === "object") {
 			props.selection = {
@@ -203,7 +199,6 @@ const Actions = {
 		} else {
 			Actions.deselect();
 		}
-		
 	}, 
 
 	move: () => {
@@ -226,7 +221,7 @@ const Actions = {
 				}
 			}
 			
-			delete props.towers[tower.id];
+			delete props.towers[tower.index];
 		}
 	},
 
@@ -237,13 +232,14 @@ const Actions = {
 			props.spent -= value;
 			
 			let tx = (tower.x + 2.5) / 5, ty = (tower.y + 2.5) / 5;
+
 			for (let i = 5; i--;) {
 				for (let ii = 5; ii--;) {
 					props.tiles[(tx + i - 2) + "," + (ty + ii - 2)] = false;
 				}
 			}
 			props.selection = false;
-			delete props.towers[tower.id];
+			delete props.towers[tower.index];
 		}
 	},
 
@@ -262,6 +258,7 @@ const Actions = {
 			props.spent += cost;
 		}
 	},
+	// not enough loop
 	refresh: () => {
 		if (props.selection.status === 'selected') {
 			let tower = props.selection.tower;
@@ -312,10 +309,12 @@ const Actions = {
 			Actions.deselect();
 		}
 	},
+	//not enough loop
 	load: ()=>{
 		Enemies.loadImg();
+
 		Render.maps_menu();
-		//выбор карты
+
 		const choose_map = (() => {
 			const list_map = document.querySelectorAll('.maps_menu');
 			let button;
@@ -324,10 +323,8 @@ const Actions = {
 				button.addEventListener('click', Actions.fillTiles)
 			}
 		})();
-		//старт и пауза
 
 		const choose_tower = (() => {
-			//фокус башни для дальнейших действий
 			const list_tower = document.querySelectorAll('.tower_img');
 			let button;
 			for(let i = 0; i < list_tower.length; i++){
@@ -357,16 +354,13 @@ const Actions = {
 		document.getElementById("canvas").addEventListener("mousemove", Actions.mousemove_canvas);
 		document.getElementById("canvas").addEventListener("click", Actions.click_canvas);
 		document.getElementById("start_button").addEventListener('click', Actions.start_pause);
-		//новая волна
 		document.getElementById("add_button").addEventListener("click", Actions.addWave); 
-		//ускорение
 		document.getElementById("fast_button").addEventListener("click", Actions.faster);
-		//перезагрузка страницы
 		document.getElementById("reset_button").addEventListener("click", Actions.reset);
 	}
 }
 
-window.onload = Actions.load;	
+
 
 
 

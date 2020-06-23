@@ -23,33 +23,25 @@ const Towers = {
 				{ damage: 600, rate: 24, range: 140 },
 				{ damage: 1000, rate: 22, range: 160 }
 			],
-			shoot: (creeps, turret) => {
+			shoot: (enemies, tower) => {
 				
-				let creep = creeps[0];
-				let _hp = creep.hp;
+				let enemy = enemies[0];
 				
-				if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-					turret.kills++;
-				}
-				
-				if (turret.levels.full && Math.rand(9) === 0) {
-					let start = props.map.path[0];
-					creep.x = start.x;
-					creep.y = start.y;
-					creep.nextpoint = 0;
+				if ((enemy.hp -= tower.damage) <= 0) {
+					tower.kills++;
 				}
 				
 				props.run.push({ 
-					what:() => {
+					drawShoot:() => {
 						canvas.lineCap = "round";
 						canvas.lineWidth = 2;
 						canvas.strokeStyle = "#EE82EE";
 						canvas.beginPath();
-						canvas.moveTo(turret.x, turret.y);
-						canvas.lineTo(creep.x, creep.y);
+						canvas.moveTo(tower.x, tower.y);
+						canvas.lineTo(enemy.x, enemy.y);
 						canvas.stroke();
 					}, 
-					until: 6 
+					live_time: 6 
 				});
 			}
 		},
@@ -72,60 +64,36 @@ const Towers = {
 				{ damage: 800, rate: 33, range: 200 }
 			],
 			cell: 0,
-			shoot: (creeps, turret) => {
-				let creep = creeps[Math.rand(creeps.length - 1)];
-				let cell = turret.cell % 4;
-				let missile = { x: turret.x + (cell % 2 === 0 ? -5 : 5), y: turret.y + (cell < 2 ? -5 : 5) };
+			shoot: (enemies, tower) => {
+				let enemy = enemies[Math.rand(enemies.length - 1)];
+				let cell = tower.cell % 4;
+				let missile = { x: tower.x + (cell % 2 === 0 ? -5 : 5), y: tower.y + (cell < 2 ? -5 : 5) };
 				
 				props.run.push({ 
-					what: () => {
-						if (creep.hp <= 0) {
-							let creeps = props.creeps.filter(() => { return true; });
+					drawShoot: () => {
+						if (enemy.hp <= 0) {
+							let enemies = props.enemies.filter(() => { return true; });
 							
-							if (creeps.length) {
-								creep = creeps[Math.rand(creeps.length - 1)];
+							if (enemies.length) {
+								enemy = enemies[Math.rand(enemies.length - 1)];
 							} else {
 								return false;
 							}
 						}
 						
-						if (Math.move(missile, creep, 3)) {
-							if (turret.levels.full) {
-								props.creeps.forEach((c) => {
-									if (Math.inRadius(creep, c, 20)) {
-										let _hp = c.hp;
-										if ((c.hp -= turret.damage) <= 0 && _hp > 0) {
-											turret.kills++;
-										}
-									}
-								});
-								
-								props.run.push({ 
-									what: () => {
-										canvas.fillStyle = "#FF0";
-										canvas.beginPath();
-										canvas.moveTo(creep.x, creep.y);
-										canvas.arc(creep.x, creep.y, 20, 0, Math.PI * 2, true);
-										canvas.fill();
-									}, 
-									until: 3
-								});
-							} else {
-								let _hp = creep.hp;
-								if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-									turret.kills++;
-								}
+						if (Math.move(missile, enemy, 3)) {
+							if ((enemy.hp -= tower.damage) <= 0) {
+								tower.kills++;
 							}
-							
 							return false;
 						} else {
 							canvas.fillStyle = "#FFF";
 							canvas.fillRect(missile.x - 2, missile.y - 2, 4, 4);
 						}
 					}, 
-					until: Infinity 
+					live_time: Infinity 
 				});
-				turret.cell++;
+				tower.cell++;
 			}
 		},
 		{
@@ -146,36 +114,33 @@ const Towers = {
 				{ damage: 400, rate: 26, range: 90 },
 				{ damage: 500, rate: 24, range: 100 }
 			],
-			shoot: (creeps, turret) => {
-				let creep = creeps.sort((a, b) => { return b.speed - a.speed; })[0];
-				let _hp = creep.hp;
-				let speed = 0.9 - (turret.damage / 1000);
-				let slowfor = 60 + turret.damage;
+			shoot: (enemies, tower) => {
+				let enemy = enemies.sort((a, b) => { return b.speed - a.speed; })[0];
+				let speed = 0.9 - (tower.damage / 1000);
 				
-				if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-					turret.kills++;
+				if ((enemy.hp -= tower.damage) <= 0) {
+					tower.kills++;
 				}
 				
-				creep.speed = creep.speed > speed ? speed : creep.speed;
-				creep.slowfor = turret.levels.full ? Infinity : (creep.slowfor < slowfor ? slowfor : creep.slowfor);
+				enemy.speed = enemy.speed > speed ? speed : enemy.speed;
 				
 				props.run.push({ 
-					what: () => {
+					drawShoot: () => {
 						canvas.lineCap = "round";
 						canvas.lineWidth = 3;
 						canvas.strokeStyle = "#00F";
 						canvas.beginPath();
-						canvas.moveTo(turret.x, turret.y);
-						canvas.lineTo(creep.x, creep.y);
+						canvas.moveTo(tower.x, tower.y);
+						canvas.lineTo(enemy.x, enemy.y);
 						canvas.stroke();
 						canvas.strokeStyle = "#FFF";
 						canvas.lineWidth = 2;
 						canvas.beginPath();
-						canvas.moveTo(turret.x, turret.y);
-						canvas.lineTo(creep.x, creep.y);
+						canvas.moveTo(tower.x, tower.y);
+						canvas.lineTo(enemy.x, enemy.y);
 						canvas.stroke();
 					}, 
-					until: 6 
+					live_time: 6 
 				});
 			}
 		},
@@ -197,38 +162,32 @@ const Towers = {
 				{ damage: 1200, rate: 80, range: 245 },
 				{ damage: 1500, rate: 75, range: 250 }
 			],
-			shoot: (creeps, turret) => {
-				let creep = creeps[0];
-				let target = { x: creep.x / 1, y: creep.y / 1 };
-				let shell = { x: turret.x / 1, y: turret.y / 1 };
-				let radius = 25 + (turret.damage / 150);
+			shoot: (enemies, tower) => {
+				let enemy = enemies[0];
+				let target = { x: enemy.x / 1, y: enemy.y / 1 };
+				let shell = { x: tower.x / 1, y: tower.y / 1 };
+				let radius = 25 + (tower.damage / 150);
 				
 				props.run.push({ 
-					what: () => {
+					drawShoot: () => {
 						if (Math.move(shell, target, 1.5)) {
-							props.creeps.forEach((creep) => {
-								if (Math.inRadius(creep, target, radius)) {
-									let _hp = creep.hp;
-									
-									if ((creep.hp -= turret.damage) <= 0 && _hp > 0) {
-										turret.kills++;
-									}
-									
-									if (turret.levels.full && !creep.burning) {
-										creep.burning = turret;
+							props.enemies.forEach((enemy) => {
+								if (Math.inRadius(enemy, target, radius)) {
+									if ((enemy.hp -= tower.damage) <= 0) {
+										tower.kills++;
 									}
 								}
 							});
 							
 							props.run.push({ 
-								what: () => {
+								drawShoot: () => {
 									canvas.fillStyle = "#FF0";
 									canvas.beginPath();
 									canvas.moveTo(target.x, target.y);
 									canvas.arc(target.x, target.y, radius, 0, Math.PI * 2, true);
 									canvas.fill();
 								}, 
-								until: 3 
+								live_time: 3 
 							});
 							
 							return false;
@@ -237,7 +196,7 @@ const Towers = {
 							canvas.fillRect(shell.x - 3, shell.y - 3, 6, 6);
 						}
 					}, 
-					until: Infinity 
+					live_time: Infinity 
 				});
 			}
 		}
