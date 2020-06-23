@@ -36,7 +36,7 @@ export Enemies = {
     loadImg : () => {
         for(let i = 0; i < Enemies.enemyTypes.length; i++){
             Enemies.enemy_img[i] = new Image();
-            Enemies.enemy_img[i].src = "img/" + Enemies.enemyTypes[i].name + ".png";
+            Enemies.enemy_img[i].src = "./img/" + Enemies.enemyTypes[i].name + ".png";
             Enemies.enemyTypes[i].img = Enemies.enemy_img[i];
         }
     }
